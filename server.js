@@ -18,14 +18,28 @@ app.use(express.static('public'));
 // =============================================================
 
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/index.html"));
-  });
 
   app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));
   });
-  
+
+  app.delete("/api/notes", function(req,res){
+    console.log("About to delete:" + req.body);
+  });
+  app.get("/api/notes", function(req, res) {
+    
+
+    res.end(req.body);
+  });
+
+  app.post("/api/notes", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/notes.html"));
+  });
+
+  app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"));
+  });
+    
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, function() {
