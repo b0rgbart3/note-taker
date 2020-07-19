@@ -83,6 +83,7 @@ var handleNoteDelete = function(event) {
 
 // Sets the activeNote and displays it
 var handleNoteView = function() {
+
   activeNote = $(this).data();
   renderActiveNote();
 };
@@ -132,6 +133,12 @@ var getAndRenderNotes = function() {
   });
 };
 
+
+
+$( document ).ready( function() {
+
+  console.log("test");
+
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);
 $newNoteBtn.on("click", handleNewNoteView);
@@ -141,3 +148,5 @@ $noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
+
+});
