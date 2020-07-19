@@ -16,6 +16,19 @@ app.use(express.static('public'));
 
 
 var notes = [];
+
+
+notes = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
+
+// fs.readFileSync("db/db.json", function(err, data) {
+//   if (err) {
+//     throw err;
+//   } else {
+//     notes = data;
+//   }
+// });
+
+//console.log(notes);
 // Routes
 // =============================================================
 
@@ -24,11 +37,11 @@ var notes = [];
 //   var chosen = req.params.character;
 
   app.delete("/api/notes/:id", function(req,res){
-    var id = req.params.id -1;
+    var id = req.params.id;
 
     console.log("About to delete:" + id);
 
-    notes.splice(id, 1);
+    //notes.splice(id, 1);
     // Find the object who's ID matches
     // var noteToDelete = notes.filter(obj => {
     //   return obj.id === id
@@ -45,8 +58,10 @@ var notes = [];
 
   });
   app.get("/api/notes", function(req, res) {
- 
+    notes = JSON.parse(fs.readFileSync(path.resolve("db", "db.json"), "utf8"));
+
     res.json(notes);
+    console.log("API - notes: " + JSON.stringify(notes));
   });
 
   app.post("/api/notes", function(req, res) {
@@ -70,7 +85,8 @@ var notes = [];
   });
 
   app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/index.html"));
+   // res.sendFile(path.join(__dirname, "public/index.html"));
+    express.static("public/index.html");  //, [options]
   });
     
 // Starts the server to begin listening
