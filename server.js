@@ -57,7 +57,12 @@ var notes = [];
    notes.push(req.body);
    console.log(JSON.stringify(req.body));
   // console.log(req.body);
-   res.json(notes);
+   fs.writeFile("db/db.json",JSON.stringify(notes), 'utf8', function() { 
+     console.log("wrote file.");
+   });
+
+   res.end();
+  
   });
 
   app.get("/notes", function(req, res) {
