@@ -21,7 +21,7 @@ let journal;
 
 var notesRaw = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
 if (notesRaw) {
-  console.log("Loading in the notes from the db file");
+  //console.log("Loading in the notes from the db file");
   var notesData = JSON.parse(notesRaw);
   var notesCount = notesData.length;
   journal = new Journal(notesData);
@@ -32,7 +32,7 @@ if (notesRaw) {
   //   notes.push(thisNote);
   // }
 } else {
-  console.log("Creating a fresh db file");
+ // console.log("Creating a fresh db file");
   journal = new Journal();
 }
 
@@ -44,9 +44,10 @@ if (notesRaw) {
   app.delete("/api/notes/:id", function(req,res){
     var id = req.params.id;
 
-  //  console.log("About to delete:" + id);
+   console.log("About to delete:" + id);
 
-    //notes.splice(id, 1);
+    journal.removeNote(id);
+    //journal.saveNotes();
     // Find the object who's ID matches
     // var noteToDelete = notes.filter(obj => {
     //   return obj.id === id

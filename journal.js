@@ -30,6 +30,24 @@ class Journal {
 
 
     }
+    removeNote(id) {
+        console.log("About to remove: " + id);
+        let indexToRemove = null;
+        for (var i = 0; i < this.notes.length; i++) {
+            console.log("id: " + this.notes[i].id);
+            if (this.notes[i].id == id) {
+                indexToRemove = i;
+            }
+        }
+        
+        
+        console.log("About to remove index: " + indexToRemove);
+        if (indexToRemove != null) {
+        this.notes.splice(indexToRemove, 1);
+        
+        this.saveNotes();
+        }
+    }
     newNote(noteObject) {
         let thisNote = null;
         console.log("in NewNote: " + JSON.stringify( noteObject ));
