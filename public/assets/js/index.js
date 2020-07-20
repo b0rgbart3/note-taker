@@ -73,18 +73,23 @@ var handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
 
+  
   var note = $(this)
     .parent(".list-group-item")
     .data();
 
-  if (activeNote.id === note.id) {
-    activeNote = {};
-  }
+  var reallyRemove = confirm("Are you sure you want to remove this note: " + note.title + "?");
 
-  deleteNote(note.id).then(function() {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  if (reallyRemove) {
+    if (activeNote.id === note.id) {
+      activeNote = {};
+    }
+
+    deleteNote(note.id).then(function() {
+      getAndRenderNotes();
+      renderActiveNote();
+    });
+  }
 };
 
 // Sets the activeNote and displays it
