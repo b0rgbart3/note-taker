@@ -6,6 +6,11 @@ class Note {
         this.title = title;
         this.text = text;
     }
+
+    updateNote(tite,text) {
+        this.title = title;
+        this.text = text;
+    }
 }
 
 

@@ -21,6 +21,7 @@ let journal;
 
 var notesRaw = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
 if (notesRaw) {
+  console.log("Loading in the notes from the db file");
   var notesData = JSON.parse(notesRaw);
   var notesCount = notesData.length;
   journal = new Journal(notesData);
@@ -31,6 +32,7 @@ if (notesRaw) {
   //   notes.push(thisNote);
   // }
 } else {
+  console.log("Creating a fresh db file");
   journal = new Journal();
 }
 
@@ -97,7 +99,7 @@ if (notesRaw) {
     //var newNote = new Note(req.body.title, req.body.text );
     // console.log("before posting: " + req.body.title);
 
-    var newNote = journal.newNote( req.body);
+    var newNote = journal.newNote( req.body );
 
     //notes.push(newNote);
     // console.log(notes);

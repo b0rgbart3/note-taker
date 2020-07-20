@@ -1,5 +1,6 @@
 var $noteTitle = $(".note-title");
 var $noteText = $(".note-textarea");
+var $noteId = $(".note-id");
 var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
@@ -17,6 +18,7 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
+  console.log("About to save: " + JSON.stringify(note ));
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -42,11 +44,13 @@ var renderActiveNote = function() {
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
+    $noteId.val(activeNote.id);   // this is added by Bart Dority
   } else {
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
     $noteTitle.val("");
     $noteText.val("");
+    $noteId.val("");
   }
 };
 
@@ -54,7 +58,8 @@ var renderActiveNote = function() {
 var handleNoteSave = function() {
   var newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val()
+    text: $noteText.val(),
+    id: $noteId.val()  // added by Bart
   };
 
   saveNote(newNote).then(function(data) {
@@ -112,7 +117,7 @@ var renderNoteList = function(notes) {
 
   var noteListItems = [];
 
-  console.log("# of notes: " + notes.length);
+ // console.log("# of notes: " + notes.length);
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
     //console.log(note);
@@ -125,7 +130,7 @@ var renderNoteList = function(notes) {
     );
 
     $li.append($span, $delBtn);
-    console.log($li.data);
+   // console.log($li.data);
     noteListItems.push($li);
   }
 

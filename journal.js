@@ -20,23 +20,48 @@ class Journal {
     getNotes() {
         return this.notes;
     }
+    findExistingNote(noteID) {
+        let found = null;
+        found = this.notes.filter( note => {note.id === noteID; });
+        if (found) {
+            return found[0];
+        }
+        else return null;
+
+
+    }
     newNote(noteObject) {
         let thisNote = null;
+        console.log("in NewNote: " + JSON.stringify( noteObject ));
         if (noteObject) {
+            console.log("There is a noteObject." + noteObject.id);
+            if (noteObject.id) {
+                console.log("looking for existing note:");
+                 let existingNote = this.findExistingNote(noteObject.id);
+                 if (existingNote) {
+                      existingNote.updateNote(noteObject.title, noteObject.text);
+                     this.saveNotes();
+             } 
+        }
+        else {
+        
             this.idCounter++;
             console.log("ID: " + this.idCounter);
            thisNote = new Note(noteObject.title, noteObject.text, this.idCounter);
            
             this.notes.push(thisNote);
-            
+            this.saveNotes();
             
            // console.log(thisNote);
 
-            fs.writeFile("db/db.json",JSON.stringify(this.notes), function() { 
-                
-              });
-        }
+           
+        }}
         return thisNote;
+    }
+    saveNotes() {
+        fs.writeFile("db/db.json",JSON.stringify(this.notes), function() { 
+                
+        });
     }
 }
 
