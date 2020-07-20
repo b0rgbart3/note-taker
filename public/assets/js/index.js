@@ -18,7 +18,7 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
- // console.log("About to save: " + JSON.stringify(note ));
+  console.log("About to save: " + JSON.stringify(note ));
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -40,8 +40,8 @@ var renderActiveNote = function() {
 
   console.log("In Render ActiveNote: " + activeNote.id);
   if (activeNote.id) {
-    $noteTitle.attr("readonly", true);
-    $noteText.attr("readonly", true);
+    // $noteTitle.attr("readonly", true);
+    // $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
     $noteId.val(activeNote.id);   // this is added by Bart Dority

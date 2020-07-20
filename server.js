@@ -3,7 +3,7 @@
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
-var Journal = require("./journal"); 
+var Journal = require("./classes/journal"); 
 
 // Sets up the Express App
 // =============================================================

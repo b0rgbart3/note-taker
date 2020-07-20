@@ -23,17 +23,21 @@ class Journal {
             }
         }
     }
+
+    // return the full array of note objects
     getNotes() {
         return this.notes;
     }
+
+    // look through our array to find the note that has a certain ID#
     findExistingNote(noteID) {
-        let found = null;
-        found = this.notes.filter( note => {note.id === noteID; });
-        if (found) {
-            return found[0];
+        for (var i =0; i < this.notes.length; i++) {
+            if (this.notes[i].id == noteID) {
+                return this.notes[i];
+            }
         }
-        else return null;
     }
+    // Delete a particular note
     removeNote(id) {
         let indexToRemove = null;
         for (var i = 0; i < this.notes.length; i++) {
@@ -46,17 +50,27 @@ class Journal {
             this.saveNotes();
         }
     }
+
+    // create a new note object
     newNote(noteObject) {
         let thisNote = null;
+
+        // create a new note object for a note that is coming from the db file
         if (noteObject) {
             if (noteObject.id) {
+       
                  let existingNote = this.findExistingNote(noteObject.id);
+        
                  if (existingNote) {
                       existingNote.updateNote(noteObject.title, noteObject.text);
                      this.saveNotes();
              } 
         }
         else {
+
+        // create a brand new note object that hasen't yet been saved.
+        // hence, it needs a fresh, unique ID#
+        
             this.idCounter++;
             thisNote = new Note(noteObject.title, noteObject.text, this.idCounter); 
             this.notes.push(thisNote);
@@ -64,6 +78,8 @@ class Journal {
         }}
         return thisNote;
     }
+
+    // save our notes array to the db.json file
     saveNotes() {
         fs.writeFile("db/db.json",JSON.stringify(this.notes), function() { 
                 
