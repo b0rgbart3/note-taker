@@ -40,10 +40,10 @@ html, body {
 
 .list-container .card {
   height: calc(100vh - 70px);
-  border-bottom: none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  background-color:#dddddd;
+  /* border-bottom: none; */
+  /* border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0; */
+  background-color:#cccccc;
 }
 
 .list-container {
@@ -51,41 +51,60 @@ html, body {
 
 }
 
-.list-container .list-group,
+/* .list-container .list-group,
 .list-container .list-group-item:first-child,
 .list-container .card {
   border-top: none;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-}
+} */
 
 .list-container i {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   cursor: pointer;
  
 }
 
-.list-container .list-group-item {
+.list-group-item {
   border-left: none;
   border-right: none;
   padding: 20px;
   cursor: pointer;
-  background-color:#efefef;
+  background-color:#dddddd;
+  border:1px solid rgba(100,100,100,.5);
 }
-
-.list-container .list-group-item:hover {
+.list-group-item:hover {
   background-color:rgb(174, 225, 210);
 }
 
+.list-container .list-group-item:active {
+  background-color:white;
+}
+
 .navbar-dark .navbar-brand {
-  background-color:rgba(27, 34, 62,.5);
+  background-color:rgba(27, 34, 62,.15);
   padding:10px;
   margin:0;
   user-select: none;
   cursor: pointer;
   border-radius:3px;
+  border:3px solid rgba(27, 34, 62,.15);
 }
 
 .navbar-dark .navbar-brand:hover {
   background-color:rgb(27, 34, 62);
+}
+
+.chosen-note {
+font-weight: bold;
+  background-color:white !important;
+}
+
+.delete-note {
+  opacity:.25;
+}
+
+.delete-note:hover {
+  opacity:1;
+  color:red;
 }

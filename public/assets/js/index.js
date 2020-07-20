@@ -96,6 +96,8 @@ var handleNoteDelete = function(event) {
 var handleNoteView = function() {
 
   activeNote = $(this).data();
+  $(".list-group-item").removeClass("chosen-note");
+  $(this).addClass("chosen-note");
   console.log('handling: ' + activeNote);
   renderActiveNote();
 };
@@ -131,7 +133,7 @@ var renderNoteList = function(notes) {
     var $li = $("<li class='list-group-item'>").data(note);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(
-      "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
+      "<i class='fas fa-trash-alt float-right delete-note'>"
     );
 
     $li.append($span, $delBtn);
