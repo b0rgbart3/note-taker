@@ -1,10 +1,9 @@
 # note-taker
 an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
-![demo](screenshot.jpg)
+![demo](demo1.gif)
 # Table of contents
-1. [Installation](#Installation)
-2. [Usage](#Usage)
+1. [Usage](#Usage)
 3. [Live Demo](#Live_Demo)
 4. [License](#License)
 5. [Features](#Features)
@@ -13,15 +12,11 @@ an application that can be used to write, save, and delete notes. This applicati
 8. [Badges](#Badges)
 9. [User Story](#User_Story)
 10. [Business Context](#Business_Context)
-<a name="Installation"></a>
-## Installation
-```sh
-asdf
-```
+
 <a name="Usage"></a>
 ## Usage
 ```sh
-asdf
+node server.js
 ```
 <a name="Live_Demo"></a>
 ## Live Demo
