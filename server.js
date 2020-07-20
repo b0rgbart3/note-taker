@@ -3,50 +3,53 @@
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
-
+var Note = require("./note");
+var Journal = require("./journal"); 
 // Sets up the Express App
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 3000;
+var dataPath = "db/db.json";
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+let journal;
+//var journal = new Journal();
 
-var notes = [];
+var notesRaw = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
+if (notesRaw) {
+  var notesData = JSON.parse(notesRaw);
+  var notesCount = notesData.length;
+  journal = new Journal(notesData);
+ 
+  // for (var i =0; i < notesCount; i++) {
+  //   // create a new Note Object
+  //   var thisNote = new Note(notesData[i].title, notesData[i].text, notesData[i].id);
+  //   notes.push(thisNote);
+  // }
+} else {
+  journal = new Journal();
+}
 
 
-notes = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
-
-// fs.readFileSync("db/db.json", function(err, data) {
-//   if (err) {
-//     throw err;
-//   } else {
-//     notes = data;
-//   }
-// });
-
-//console.log(notes);
 // Routes
 // =============================================================
 
 
-// app.get("/api/characters/:character", function(req, res) {
-//   var chosen = req.params.character;
-
   app.delete("/api/notes/:id", function(req,res){
     var id = req.params.id;
 
-    console.log("About to delete:" + id);
+  //  console.log("About to delete:" + id);
 
     //notes.splice(id, 1);
     // Find the object who's ID matches
     // var noteToDelete = notes.filter(obj => {
     //   return obj.id === id
     // });
-    console.log(notes);
+  //  console.log(notes);
     // console.log("Note to delete: " + noteToDelete);
 
     // // Find the index of the found object in the array
@@ -58,29 +61,56 @@ notes = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
 
   });
   app.get("/api/notes", function(req, res) {
-    notes = JSON.parse(fs.readFileSync(path.resolve("db", "db.json"), "utf8"));
+    // var dbFile = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
+    // if (dbFile) {
+    //   notes = JSON.parse(dbFile);
+    // } else {
+    //   notes = [];
+    // }
+    //console.log(journal);
+    //console.log( journal.getNotes() );
 
-    res.json(notes);
-    console.log("API - notes: " + JSON.stringify(notes));
+    return res.json(journal.getNotes());
+    // console.log("API - notes: " + JSON.stringify(notes));
+
+    // fs.readFile(dataPath, "utf8", (err, data) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   notes = data;
+    //   // res.send(JSON.parse(data));
+    //   res.send(notes);
+    // });
+
+
   });
 
   app.post("/api/notes", function(req, res) {
     // need to read in the json file, then append the req.body to it.
  
-   req.body.id = notes.length + 1;
+   
+    // var newNote = {
+    //   id: idCounter,
+    //   title: req.body.title,
+    //   text: req.body.text,
+    // };
+    //var newNote = new Note(req.body.title, req.body.text );
+    // console.log("before posting: " + req.body.title);
 
-   notes.push(req.body);
-   console.log(JSON.stringify(req.body));
-  // console.log(req.body);
-   fs.writeFile("db/db.json",JSON.stringify(notes), 'utf8', function() { 
-     console.log("wrote file.");
-   });
+    var newNote = journal.newNote( req.body);
 
-   res.end();
+    //notes.push(newNote);
+    // console.log(notes);
+    // fs.writeFile("db/db.json",JSON.stringify(notes), function() { 
+    //   res.json(newNote);
+    // });
+
+    res.json(newNote);
   
   });
 
   app.get("/notes", function(req, res) {
+   // console.log("hello");
      res.sendFile(path.join(__dirname, "public/notes.html"));
   });
 
