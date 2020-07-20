@@ -20,7 +20,7 @@ node server.js
 ```
 <a name="Live_Demo"></a>
 ## Live Demo
-asdfasdfasdf
+https://afternoon-temple-54347.herokuapp.com/
 <a name='License'></a>
 ## License
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
@@ -32,8 +32,9 @@ asdfasdfasdf
 <a name="Technology"></a>
 ## Technology
 1. Node JS
-2.  HTML
-3.  CSS
+2. Heroku hosting platform
+3.  HTML
+4.  CSS
 <a name="Credits"></a>
 ## Credits
 b0rgBart3@gmail.com
