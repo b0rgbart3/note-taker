@@ -18,6 +18,7 @@ app.use(express.static('public'));
 
 // Start by reading in the existing notes from the db
 let journal;
+
 var notesRaw = fs.readFileSync(path.resolve("db", "db.json"), "utf8");
 if (notesRaw) {
   var notesData = JSON.parse(notesRaw);
