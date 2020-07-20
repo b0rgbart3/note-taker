@@ -1,7 +1,12 @@
 var Note = require("./note");
 var fs = require("fs");
 
+// Journal class stores all of our notes and keeps a running idCounter to make sure
+// they all have unique IDs
+
 class Journal {
+
+    // construct a Journal object from an array of JSON notes data
     constructor(notesData) {
         this.notes = [];
         this.idCounter = 1;
@@ -9,11 +14,12 @@ class Journal {
         if (notesData) {
             for (let note of notesData ) {
                 let thisNote = new Note(note.title, note.text, note.id);
+
+                // take note of the highest ID # 
                 if (note.id > this.idCounter) {
                     this.idCounter = note.id;
                 }
                 this.notes.push(thisNote);
-
             }
         }
     }
@@ -27,34 +33,23 @@ class Journal {
             return found[0];
         }
         else return null;
-
-
     }
     removeNote(id) {
-        console.log("About to remove: " + id);
         let indexToRemove = null;
         for (var i = 0; i < this.notes.length; i++) {
-            console.log("id: " + this.notes[i].id);
             if (this.notes[i].id == id) {
                 indexToRemove = i;
             }
         }
-        
-        
-        console.log("About to remove index: " + indexToRemove);
         if (indexToRemove != null) {
-        this.notes.splice(indexToRemove, 1);
-        
-        this.saveNotes();
+            this.notes.splice(indexToRemove, 1);
+            this.saveNotes();
         }
     }
     newNote(noteObject) {
         let thisNote = null;
-        console.log("in NewNote: " + JSON.stringify( noteObject ));
         if (noteObject) {
-            console.log("There is a noteObject." + noteObject.id);
             if (noteObject.id) {
-                console.log("looking for existing note:");
                  let existingNote = this.findExistingNote(noteObject.id);
                  if (existingNote) {
                       existingNote.updateNote(noteObject.title, noteObject.text);
@@ -62,17 +57,10 @@ class Journal {
              } 
         }
         else {
-        
             this.idCounter++;
-            console.log("ID: " + this.idCounter);
-           thisNote = new Note(noteObject.title, noteObject.text, this.idCounter);
-           
+            thisNote = new Note(noteObject.title, noteObject.text, this.idCounter); 
             this.notes.push(thisNote);
             this.saveNotes();
-            
-           // console.log(thisNote);
-
-           
         }}
         return thisNote;
     }
